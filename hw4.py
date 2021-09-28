@@ -88,7 +88,6 @@ class Stall:
                 self.stock_up(name, quantity)
 
         def has_item (self, name, quantity):
-            for item in self.inventory:
                 if self.inventory[name] >= quantity:
                     return True
                 else:
@@ -205,15 +204,19 @@ class TestAllMethods(unittest.TestCase):
 
 	# Test validate order
     def test_validate_order(self):
-        inventory = {"Fruit": 10, "Meat": 3, "Milk": 5}
-        inventory2 = {}
+        
 
 		# case 1: test if a customer doesn't have enough money in their wallet to order
-
+        self.f1.validate_order(self.c1, self.s1, "Apples", 5)
+        print ("Don't have enough money for that :( Please reload more money!")
 		# case 2: test if the stall doesn't have enough food left in stock
-
+        self.f1.validate_order(self.c2, self.s1, "Cake", 50)
+        print ("Our stall has run out of Cake :( Please try a different stall!")
 		# case 3: check if the cashier can order item from that stall
-        pass
+        self.s4 = Stall("C", {"Pixxa": 5, "Cake":45}) 
+        self.f1.validate_order(self.c1, self.s4, "Tacos", 6)
+        print ("Sorry, we don't have that vendor stall. Please try a different one.")
+
 
     # Test if a customer can add money to their wallet
     def test_reload_money(self):
@@ -221,7 +224,7 @@ class TestAllMethods(unittest.TestCase):
         self.f2.reload_money(500)
         self.assertEqual(self.f2.wallet, original+500)
 
-        pass
+
     
 ### Write main function
 def main():
