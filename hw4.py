@@ -48,7 +48,11 @@ class Cashier:
 
     # Whether the stall is in the cashier's directory
     def has_stall(self, stall):
-        return stall in self.directory
+        if stall in self.directory:
+            return True
+        else:
+            return False
+
 
     # Adds a stall to the directory of the cashier.
     def add_stall(self, new_stall):
